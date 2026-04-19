@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function AdminPage() {
+  return (
+    <Suspense fallback={<div className="animate-pulse text-gray-400 p-8">Loading...</div>}>
+      <AdminContent />
+    </Suspense>
+  );
+}
+
+function AdminContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [user, setUser] = useState<any>(null);
