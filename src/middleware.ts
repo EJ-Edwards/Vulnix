@@ -50,7 +50,7 @@ export function middleware(request: NextRequest) {
 
   // Detect SQL injection in query parameters
   const searchParams = request.nextUrl.searchParams;
-  for (const [key, value] of searchParams.entries()) {
+  searchParams.forEach((value, key) => {
     const sqlCheck = detectSqlInjection(value);
     if (sqlCheck.detected) {
       console.warn(`🚨 SQL Injection attempt detected:`, {
@@ -68,7 +68,7 @@ export function middleware(request: NextRequest) {
         payload: xssCheck.payload.substring(0, 100),
       });
     }
-  }
+  });
 
   return response;
 }
